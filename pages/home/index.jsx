@@ -1,8 +1,8 @@
 import React from 'react';
-import { Button, Pressable, StyleSheet, Text, View, Vibration } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import axios from 'axios';
 
-export default function App() {
+export default function Home() {
   const [ active, setActive ] = React.useState(false)
   React.useEffect(() => {
     axios.put('https://635946bf38725a1746ac64d6.mockapi.io/api/v1/value/1/', {value: active})
