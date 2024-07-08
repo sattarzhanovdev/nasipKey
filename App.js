@@ -1,56 +1,22 @@
 import React from 'react';
-import { Button, Pressable, StyleSheet, Text, View, Vibration } from 'react-native';
-import axios from 'axios';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Pages } from './screens';
 
-export default function App() {
-  const [ active, setActive ] = React.useState(false)
-  React.useEffect(() => {
-    axios.put('https://635946bf38725a1746ac64d6.mockapi.io/api/v1/value/1/', {value: active})
-    setTimeout(() => {
-      setActive(false)
-    }, 15000)
-  }, [active])
+const Stack = createNativeStackNavigator();
+
+function App() {
   return (
-    <View
-      style={styles.View}
-    >
-      <Pressable 
-        style={styles.Button}
-        onPress={() => {
-          setActive(!active)
-        }}
-      >
-        <Text style={styles.Text}>
-          Открыть
-        </Text>
-      </Pressable>
-      <Text style={styles.OpenText}>
-        {active ? 'Открывается' : 'Закрыто'}
-      </Text> 
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Auth">
+        <Stack.Screen name="Auth" component={Pages.Auth} options={{title: 'Авторизация'}} />
+        <Stack.Screen name="Register" component={Pages.Register} options={{title: 'Регистрация'}} />
+        <Stack.Screen name="Main" component={Pages.Main} options={{title: 'Главная страница'}} />
+        <Stack.Screen name="Open" component={Pages.Open} options={{title: 'Открыть вороту'}} />
+        <Stack.Screen name="Profile" component={Pages.Profile} options={{title: 'Профиль'}} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  View: {
-    height: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  Button: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 20,
-    paddingHorizontal: 100,
-    borderRadius: 4,
-    elevation: 3,
-    backgroundColor: 'black',
-  },
-  Text: {
-    color: 'white'
-  },
-  OpenText: {
-    marginTop: 20
-  }
-})
+export default App;
