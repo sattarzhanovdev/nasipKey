@@ -1,10 +1,10 @@
 import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-import axios from 'axios';
 import { Audio } from 'expo-av';
+import { API } from '../api';
 
 function Open() {
-  const [active, setActive] = React.useState(false);
+  const [active, setActive] = React.useState(null);
   const [sound, setSound] = React.useState();
   const [sound2, setSound2] = React.useState();
 
@@ -45,28 +45,32 @@ function Open() {
     }
   };
 
-  React.useEffect(() => {
-
-    setTimeout(() => {
-      setActive(false);
-    }, 15*1000);
-  }, [active]);
+  const handleOpen = () => {
+    API.openClose(true)
+    .then(() => {
+        playSound()
+        setActive(true)
+        setTimeout(() => {
+          API.openClose(false) 
+            .then(() => {
+              closeSound()
+              setActive(false)
+            })
+        }, 15*1000)
+      })
+  }
 
   return (
     <View style={styles.View}>
       <Pressable
         style={styles.Button}
         onPress={() => {
-          setActive(!active);
-          playSound()
-          setTimeout(() => {
-            closeSound()
-          }, 15*1000)
+          handleOpen()
         }}
       >
         <Text style={styles.Text}>Открыть</Text>
       </Pressable>
-      <Text style={styles.OpenText}>{active ? 'Открывается' : 'Закрыто'}</Text>
+      <Text style={styles.OpenText}>{active ? 'Открывается' : 'Закрыто' }</Text>
     </View>
   );
 }
@@ -83,16 +87,18 @@ const styles = StyleSheet.create({
   Button: {
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 20,
-    paddingHorizontal: 100,
-    borderRadius: 4,
+    paddingVertical: 100,
+    paddingHorizontal: 80,
+    borderRadius: 500,
     elevation: 3,
-    backgroundColor: 'black',
+    backgroundColor: 'green',
   },
   Text: {
     color: 'white',
+    fontSize: 20
   },
   OpenText: {
     marginTop: 20,
+    fontSize: 20
   },
 });

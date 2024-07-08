@@ -1,3 +1,6 @@
+import Admin from "./Admin";
+import AdminAuth from "./AdminAuth";
+import Apartment from "./Apartment";
 import Auth from "./Auth";
 import Main from "./Main";
 import Open from "./Open";
@@ -9,5 +12,8 @@ export const Pages = {
   Main,
   Auth,
   Register,
-  Profile
+  Profile,
+  Admin,
+  AdminAuth,
+  Apartment
 } 

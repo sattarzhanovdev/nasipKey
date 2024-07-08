@@ -11,15 +11,16 @@ function Register({navigation}) {
   const [apartment, setApartment] = React.useState()
   const [car_number, setCarNumber] = React.useState()
   const [password, setPassword] = React.useState()
+
   const handleRegister = () => {
     API.postUser({
-      name, phone_number, block, apartment, car_number, password
+      name, phone_number, block, apartment, car_number, password, isBlocked: false
     })
-      .then(res => {
+      .then(() => {
         const data = JSON.stringify({
-          name, phone_number, block, apartment, car_number, password
+          userId: {name, phone_number, block, apartment, car_number, password, isBlocked: false}
         })
-        AsyncStorage.setItem('isRegistered', JSON.parse(data).name)
+        AsyncStorage.setItem('userId', data)
         alert('Регистрация прошла успешно!')
         navigation.navigate('Main')
       })
@@ -108,7 +109,7 @@ const style = StyleSheet.create({
   },
   h1: {
     color: 'black',
-    fontSize: '36px',
+    // fontSize: '36px',
     marginBottom: 50
   },
   input: {
@@ -125,7 +126,7 @@ const style = StyleSheet.create({
   },
   p: {
     color: 'black',
-    fontSize: '20px',
+    // fontSize: '20px',
     marginTop: 20
   },
   btnText: {

@@ -3,7 +3,6 @@
     "name": "NasipKey",
     "slug": "NasipKey",
     "version": "1.0.0",
-    "platforms": ["ios", "android"],
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -13,19 +12,26 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.sattarzanov.NasipKey"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.sattarzanov.NasipKey"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "permissions": {
       "audio": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "45479bcd-1d8a-4c63-8b01-8e63d4f28cd0"
+      }
     }
   }
 }
